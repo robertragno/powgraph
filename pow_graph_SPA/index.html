@@ -125,7 +125,10 @@
 </div>
 
 <div id="container" class="container">
-<h2 class="sub-header">Powder</h2>
+</div>
+
+<script type="x-handlebars-template" id="resort-list-template">
+	<h2 class="sub-header">Powder</h2>
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<thead>
@@ -138,41 +141,18 @@
 				</tr>
 			</thead>
 			<tbody>
+				{{#each allResorts}}
 				<tr>
-					<td>Alpine Meadows</td>
-					<td>CA</td>
-					<td>24"</td>
-					<td>38"</td>
-					<td>60"</td>
+					<td>{{attributes.resort}}</td>
+					<td>{{attributes.state}}</td>
+					<td>{{attributes.powder}}</td>
+					<td>{{attributes.base_lo}}</td>
+					<td>{{attributes.base_hi}}</td>
 				</tr>
-				<tr>
-					<td>Squaw Valley</td>
-					<td>CA</td>
-					<td>25"</td>
-					<td>40"</td>
-					<td>63"</td>
-				</tr>
-				<tr>
-					<td>Vail</td>
-					<td>CO</td>
-					<td>11"</td>
-					<td>66"</td>
-					<td>79"</td>
-				</tr>
-				<tr>
-					<td>Mt Bachelor</td>
-					<td>OR</td>
-					<td>30"</td>
-					<td>60"</td>
-					<td>80"</td>
-				</tr>
+				{{/each}}
 			</tbody>
 		</table>
 	</div>
-</div>
-
-<script type="x-handlebars-template" id="power-24hr-template">
-	
 </script>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -4,18 +4,25 @@ var resortListTemplate;
 //compile the list of resorts on documnet ready
 (function() {
 	var resortListTemplateSource = $("#resort-list-template").html();
-	resortListTemplate = Handlebars.compile(bookListTemplateSource);
+	resortListTemplate = Handlebars.compile(resortListTemplateSource);
 })();
 
-//Set up books collection
+//Set up resorts collection
 
 var Resorts = Backbone.Collection.extend({
-	url: "api.powgraph.dev"
+	url: "http://powgraph.dev/resorts.json"
 });
 
 var resorts = new Resorts();
 
-// set up book list view
+
+//Set up resort model
+
+var Resort = Backbone.Model.extend({
+	urlRoot: "http://powgraph.dev/resorts.json"
+});
+
+// set up resort list view
 
 var ResortList = Backbone.View.extend({
 	el: "#container",
