@@ -37,10 +37,65 @@
 			text-align:right;
 		}
 	</style>
+	<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39fvLMm2HCF5OZNya1n7vDWS-e0PHiVw">
+	</script>
+	<script type="text/javascript">
+	var skiresort = {};
+    skiresort['squaw'] = {
+    	center: new google.maps.LatLng(39.195444, -120.235455),
+    	powder: 24
+    };
+    skiresort['alpine'] = {
+    	center: new google.maps.LatLng(39.164529, -120.238756),
+    	powder: 20
+    };
+    skiresort['northstar'] = {
+    	center: new google.maps.LatLng(39.282281, -120.123637),
+    	powder: 12
+    };
+
+
+
+    var resortCircle;
+    var resortMarker;
+
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 39.077763, lng: -120.032549},
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        for (var resort in skiresort) {
+		    var powOptions = {
+		      strokeColor: '#FF0000',
+		      strokeOpacity: 0.8,
+		      strokeWeight: 2,
+		      fillColor: '#FF0000',
+		      fillOpacity: 0.35,
+		      map: map,
+		      center: skiresort[resort].center,
+		      radius: (skiresort[resort].powder * skiresort[resort].powder/2) * 10
+		    };
+		    // Add the circle for this city to the map.
+		    resortCircle = new google.maps.Circle(powOptions);
+		    var latLang = new google.maps.LatLng(39.195444, -120.235455);
+		    resortMarker = new google.maps.Marker({
+		    	position: latLang,
+		    	title: "woo"
+		    });
+
+		}
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
 </head>
 
 <body>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -50,50 +105,70 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <span class="navbar-brand" href="#">PowGraph</span>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li><a href="#">Robert</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
+          <a href="#">Sign In</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<div id="hero" class="container" style="height: 600px; margin-top: 60px">
+	<div id="map-canvas" style="width: 100%; height: 100%"></div>
+</div>
+
 <div id="container" class="container">
+<h2 class="sub-header">Powder</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Resort</th>
+					<th>State</th>
+					<th>24hr Snowfall</th>
+					<th>Base Depth</th>
+					<th>Mid Mtn. Depth</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Alpine Meadows</td>
+					<td>CA</td>
+					<td>24"</td>
+					<td>38"</td>
+					<td>60"</td>
+				</tr>
+				<tr>
+					<td>Squaw Valley</td>
+					<td>CA</td>
+					<td>25"</td>
+					<td>40"</td>
+					<td>63"</td>
+				</tr>
+				<tr>
+					<td>Vail</td>
+					<td>CO</td>
+					<td>11"</td>
+					<td>66"</td>
+					<td>79"</td>
+				</tr>
+				<tr>
+					<td>Mt Bachelor</td>
+					<td>OR</td>
+					<td>30"</td>
+					<td>60"</td>
+					<td>80"</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script type="x-handlebars-template" id="power-24hr-template">
